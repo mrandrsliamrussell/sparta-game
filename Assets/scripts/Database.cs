@@ -2,24 +2,41 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-
+using Mono.Data.Sqlite;
+using System.IO;
 using UnityEngine;
+
 
 public class Database : MonoBehaviour
 {
-    // Start is called before the first frame update
+   
     
     void Start()
     {
-     
-      using(var db = new game_databaseEntities())
+
+        string conn = "URI=file:" + Application.dataPath + "/SpartaGameDatabase.db"; //Path to database.
+        IDbConnection dbconn;
+        dbconn = (IDbConnection)new SqliteConnection(conn);
+        dbconn.Open(); //Open connection to the database.
+        IDbCommand dbcmd = dbconn.CreateCommand();
+        string sqlQuery = "SELECT * " + "FROM GameScores";
+        dbcmd.CommandText = sqlQuery;
+        IDataReader reader = dbcmd.ExecuteReader();
+        while (reader.Read())
         {
-            
+            int value = reader.GetInt32(1);
+            string name = reader.GetString(0);
+           // int rand = reader.GetInt32(2);
+
+            Debug.Log("value= " + value + "  name =" + name );
         }
-      using(var db = new NorthwindEntities())
-        {
-           
-        }
+        reader.Close();
+        reader = null;
+        dbcmd.Dispose();
+        dbcmd = null;
+        dbconn.Close();
+        dbconn = null;
+
     }
 
     // Update is called once per frame

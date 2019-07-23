@@ -265,3 +265,7 @@ C:\Users\LRussell\Sparta Game\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs
 C:\Users\LRussell\Sparta Game\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\LRussell\Sparta Game\obj\Debug\Assembly-CSharp.dll
 C:\Users\LRussell\Sparta Game\obj\Debug\Assembly-CSharp.pdb
+C:\Users\LRussell\sparta-game\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+C:\Users\LRussell\sparta-game\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+C:\Users\LRussell\sparta-game\obj\Debug\Assembly-CSharp.dll
+C:\Users\LRussell\sparta-game\obj\Debug\Assembly-CSharp.pdb
