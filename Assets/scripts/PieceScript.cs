@@ -24,4 +24,15 @@ public class PieceScript : MonoBehaviour
     {
         boardpiece = gameHolder.GetComponent<GameScript>().boardarray[x, y];
     }
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.GetComponent<PieceScript>() != null)
+        {
+            if(BoardPieceScript.GlobalTurn == col.gameObject.GetComponent<PieceScript>().team)
+            {
+                
+                Destroy(this.gameObject);
+            }
+        }
+    }
 }

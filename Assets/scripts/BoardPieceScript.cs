@@ -9,6 +9,7 @@ public class BoardPieceScript : MonoBehaviour
     public int x, y;
     public GameObject pieceOnMe, gameHolder;
     public static GameObject focusPiece;
+    public static int GlobalTurn;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +31,7 @@ public class BoardPieceScript : MonoBehaviour
                 return holder;
             }          
         }
-        return holder;
+        return null;
     }
     void FindPiece()
     {
@@ -42,14 +43,14 @@ public class BoardPieceScript : MonoBehaviour
             {
                 pieceOnMe = gameHolder.GetComponent<GameScript>().pieceList[i];
                 pieceSelected = true;
-                Debug.Log("piece selected");
+              //  Debug.Log("piece selected");
                 break;
             }
             else
             {
                 pieceSelected = false;
                 
-                Debug.Log("piece not selected");
+               // Debug.Log("piece not selected");
             }
             
         }
@@ -68,8 +69,7 @@ public class BoardPieceScript : MonoBehaviour
     void OnMouseOver()
     {
         if(clicked == false)
-        {
-            
+        {         
             this.gameObject.GetComponent<Renderer>().material = selected;
         }
        
@@ -91,6 +91,16 @@ public class BoardPieceScript : MonoBehaviour
             {
                 focusPiece.transform.position = new Vector3(x * gameHolder.GetComponent<GameScript>().boardpiece.GetComponent<Collider>().bounds.size.x, 0.5f, y * gameHolder.GetComponent<GameScript>().boardpiece.GetComponent<Collider>().bounds.size.z);
                 pieceSelected = false;
+                //focusPiece.GetComponent<PieceScript>().boardpiece.GetComponent<BoardPieceScript>().pieceOnMe = null;
+                pieceOnMe = FindPiece(this.gameObject);
+                if(GlobalTurn == 0)
+                {
+                    GlobalTurn = 1;
+                }
+                else
+                {
+                    GlobalTurn = 0;
+                }
                 
             }
             clicked = false;

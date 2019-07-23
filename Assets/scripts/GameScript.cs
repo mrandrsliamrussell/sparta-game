@@ -8,7 +8,8 @@ public class GameScript : MonoBehaviour
     public GameObject boardpiece;
     public GameObject[,] boardarray = new GameObject[11, 11];
     public List<GameObject> pieceList = new List<GameObject>();
-
+    public GameObject p1UI, p2UI;
+    public int turnsTaken;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,17 +46,13 @@ public class GameScript : MonoBehaviour
             }
         }
     }
-   public void MoveGamePiece(GameObject piece, int x, int y, int team)
+    void RefreshPositions()
     {
         for(int i = 0; i < 11; i++)
         {
-            for (int j = 0; j < 11; j++)
+            for(int j = 0; j<11; j++)
             {
-                if(i == x && j == y)
-                {
-                    InstantiateGamePiece(i, j, team);
-                    //Destroy(piece);
-                }
+
             }
         }
     }
@@ -91,7 +88,16 @@ public class GameScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(BoardPieceScript.GlobalTurn == 0)
+        {
+            p1UI.SetActive(true);
+            p2UI.SetActive(false);
+        }
+        else
+        {
+            p1UI.SetActive(false);
+            p2UI.SetActive(true);
+        }
     }
 
   
