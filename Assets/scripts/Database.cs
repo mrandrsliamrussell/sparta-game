@@ -26,7 +26,7 @@ public class Database : MonoBehaviour
         {
             int value = reader.GetInt32(1);
             string name = reader.GetString(0);
-           // int rand = reader.GetInt32(2);
+           
 
             Debug.Log("value= " + value + "  name =" + name );
         }

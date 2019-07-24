@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class GameScript : MonoBehaviour
@@ -9,7 +10,8 @@ public class GameScript : MonoBehaviour
     public GameObject[,] boardarray = new GameObject[11, 11];
     public List<GameObject> pieceList = new List<GameObject>();
     public GameObject p1UI, p2UI;
-    public int turnsTaken;
+    public Text TimeTaken;
+    public static int turnsTaken;
     // Start is called before the first frame update
     void Start()
     {
@@ -88,13 +90,17 @@ public class GameScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(BoardPieceScript.GlobalTurn);
+        TimeTaken.text = $"Time  {Mathf.RoundToInt(Time.timeSinceLevelLoad).ToString()} Turn {turnsTaken}";
         if(BoardPieceScript.GlobalTurn == 0)
         {
+            
             p1UI.SetActive(true);
             p2UI.SetActive(false);
         }
         else
         {
+            
             p1UI.SetActive(false);
             p2UI.SetActive(true);
         }

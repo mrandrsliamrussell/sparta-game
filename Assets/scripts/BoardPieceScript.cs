@@ -5,56 +5,18 @@ using UnityEngine;
 public class BoardPieceScript : MonoBehaviour
 {
     public Material deselected, selected;
-    public static bool clicked = false, pieceSelected = false;
+    public static bool clicked = false;
     public int x, y;
     public GameObject pieceOnMe, gameHolder;
-    public static GameObject focusPiece;
+    
     public static int GlobalTurn;
     // Start is called before the first frame update
     void Start()
     {
         this.gameObject.GetComponent<Renderer>().material = deselected;
-        FindPiece();
+        
     }
-    GameObject FindPiece(GameObject g)
-    {
-        GameObject holder = null;
-        for (int i = 0; i < gameHolder.GetComponent<GameScript>().pieceList.Count; i++)
-        {
-           
-            if (g.GetComponent<BoardPieceScript>().x == gameHolder.GetComponent<GameScript>().pieceList[i].GetComponent<PieceScript>().x
-            && g.GetComponent<BoardPieceScript>().y == gameHolder.GetComponent<GameScript>().pieceList[i].GetComponent<PieceScript>().y)
-            {
-                pieceOnMe = gameHolder.GetComponent<GameScript>().pieceList[i];
-                holder = pieceOnMe;
-
-                return holder;
-            }          
-        }
-        return null;
-    }
-    void FindPiece()
-    {
-        for(int i=0; i< gameHolder.GetComponent<GameScript>().pieceList.Count; i++)
-        {
-            
-            if(this.x == gameHolder.GetComponent<GameScript>().pieceList[i].GetComponent<PieceScript>().x 
-            && this.y == gameHolder.GetComponent<GameScript>().pieceList[i].GetComponent<PieceScript>().y)
-            {
-                pieceOnMe = gameHolder.GetComponent<GameScript>().pieceList[i];
-                pieceSelected = true;
-              //  Debug.Log("piece selected");
-                break;
-            }
-            else
-            {
-                pieceSelected = false;
-                
-               // Debug.Log("piece not selected");
-            }
-            
-        }
-    }
+  
 
     // Update is called once per frame
     void OnMouseExit()
@@ -76,39 +38,15 @@ public class BoardPieceScript : MonoBehaviour
     }
     void OnMouseDown()
     {
-       
-        if (clicked == false)
-        {
-            clicked = true;
-            this.gameObject.GetComponent<Renderer>().material = selected;
-            focusPiece = FindPiece(this.gameObject);
-            focusPiece.gameObject.GetComponent<Renderer>().material = selected;
-            pieceSelected = true;
+        if(PieceScript.pieceSelected == true) {
+
+
+            PieceScript.focusPiece = this.gameObject;
         }
         else
         {
-            if (pieceSelected == true)
-            {
-                focusPiece.transform.position = new Vector3(x * gameHolder.GetComponent<GameScript>().boardpiece.GetComponent<Collider>().bounds.size.x, 0.5f, y * gameHolder.GetComponent<GameScript>().boardpiece.GetComponent<Collider>().bounds.size.z);
-                pieceSelected = false;
-                //focusPiece.GetComponent<PieceScript>().boardpiece.GetComponent<BoardPieceScript>().pieceOnMe = null;
-                pieceOnMe = FindPiece(this.gameObject);
-                if(GlobalTurn == 0)
-                {
-                    GlobalTurn = 1;
-                }
-                else
-                {
-                    GlobalTurn = 0;
-                }
-                
-            }
-            clicked = false;
-            this.gameObject.GetComponent<Renderer>().material = deselected;
-            focusPiece.gameObject.GetComponent<Renderer>().material = deselected;
-            pieceSelected = false;
+            PieceScript.focusPiece = null;
         }
-       
-
     }
+  
 }
