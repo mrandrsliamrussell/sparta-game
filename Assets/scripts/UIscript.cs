@@ -13,20 +13,29 @@ public class UIscript : MonoBehaviour
     
     public Text p1input;
     public Text p2input;
-    public Button StartGame;
+    public Button StartGame, Test;
     public Text listText;
-    Text GameWinner;
-    int WinningScore;
+    public GameObject gameHolder;
+    bool foundObject = false;
+    public static string p1text, p2text;
     // Start is called before the first frame update
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+     
     }
     void Start()
     {
         ShowHighscores();
         StartGame.onClick.AddListener(TaskOnClick);
-        
+        Test.onClick.AddListener(TestSave);
+
+       
+    }
+    void TestSave()
+    {
+        SaveWinner("sam", 300);
+        ShowHighscores();
     }
     void TaskOnClick()
     {
@@ -59,24 +68,54 @@ public class UIscript : MonoBehaviour
         dbconn = null;
 
     }
-    void SaveWinner()
+    public static void SaveWinner(string GameWinner, int WinningScore)
     {
+        // Create Database
         string conn = "URI=file:" + Application.dataPath + "/SpartaGameDatabase.db"; //Path to database.
-        IDbConnection dbconn;
-        dbconn = (IDbConnection)new SqliteConnection(conn);
-        dbconn.Open(); //Open connection to the database.
+
+        // Open connection to database
+        IDbConnection dbconn = (IDbConnection)new SqliteConnection(conn);
+        dbconn.Open();
+
+        // Create command on connection
         IDbCommand dbcmd = dbconn.CreateCommand();
-        string sqlQuery = $"INSERT INTO GameScores (Winner, Moves) VALUES({GameWinner}, {WinningScore})";
-        dbcmd.CommandText = sqlQuery;
-      
-        dbcmd.Dispose();
-        dbcmd = null;
+
+        // Create insert statement on sql insert string
+        string sqlInsert = "INSERT INTO GameScores (Winner,Moves) VALUES (@newName,@newScore);";
+
+        //Create new sqlite command
+        SqliteCommand command = new SqliteCommand();
+        dbcmd.Parameters.Add(new SqliteParameter("@newName", GameWinner));     //gives @currentdate sqlite parrameter data from current date variable
+        dbcmd.Parameters.Add(new SqliteParameter("@newScore", WinningScore));     //gives @currenttime sqlite parrameter data from current time variable
+
+        // Set dbcmd.CommandText to be equal to the insert statement
+        dbcmd.CommandText = sqlInsert;
+
+        IDataReader reader;
+
+        reader = dbcmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            int value = reader.GetInt32(1);
+            string name = reader.GetString(0);
+            Debug.Log("name = " + name + " and value= " + value);
+        }
+
         dbconn.Close();
-        dbconn = null;
+    
     }
     // Update is called once per frame
     void Update()
     {
-        
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Scene0" && foundObject == false)
+        {
+          gameHolder =  GameObject.Find("GamePlayObject");
+            
+           
+            foundObject = true;
+
+        }
     }
 }

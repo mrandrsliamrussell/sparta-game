@@ -1,18 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameScript : MonoBehaviour
 {
     public GameObject piece;
     public GameObject boardpiece;
-    public GameObject[,] boardarray = new GameObject[11, 11];
+    public static int turnsTaken, boardSize = 4;
+    public GameObject[,] boardarray = new GameObject[boardSize, boardSize];
     public List<GameObject> pieceList = new List<GameObject>();
-    public GameObject p1UI, p2UI;
+    public GameObject p1UI, p2UI, p1Win, p2Win;
     public Text TimeTaken;
-    public static int turnsTaken;
+    public static bool Winner;
+    bool foundObject;
+    public static string p1Name, p2Name;
+
     // Start is called before the first frame update
+    void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     void Start()
     {
 
@@ -22,9 +31,9 @@ public class GameScript : MonoBehaviour
     }
     void ResetGamePieces()
     {
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < boardSize; i++)
         {
-            for (int j = 0; j < 11; j++)
+            for (int j = 0; j < boardSize; j++)
             {
                 switch (i)
                 {
@@ -34,10 +43,10 @@ public class GameScript : MonoBehaviour
                     case 1:
                         InstantiateGamePiece(i, j, 1);
                         break;
-                    case 9:
+                    case 3:
                         InstantiateGamePiece(i, j, 0);
                         break;
-                    case 10:
+                    case 4:
                         InstantiateGamePiece(i, j, 0);
                         break;
 
@@ -50,9 +59,9 @@ public class GameScript : MonoBehaviour
     }
     void RefreshPositions()
     {
-        for(int i = 0; i < 11; i++)
+        for(int i = 0; i < boardSize; i++)
         {
-            for(int j = 0; j<11; j++)
+            for(int j = 0; j< boardSize; j++)
             {
 
             }
@@ -70,9 +79,9 @@ public class GameScript : MonoBehaviour
     }
     void CreateBoard()
     {
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < boardSize; i++)
         {
-            for (int j = 0; j < 11; j++)
+            for (int j = 0; j < boardSize; j++)
             {
                 GameObject newBoardPiece = Instantiate(boardpiece) as GameObject;
                 newBoardPiece.transform.position =
@@ -90,7 +99,7 @@ public class GameScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(BoardPieceScript.GlobalTurn);
+
         TimeTaken.text = $"Time  {Mathf.RoundToInt(Time.timeSinceLevelLoad).ToString()} Turn {turnsTaken}";
         if(BoardPieceScript.GlobalTurn == 0)
         {
@@ -104,17 +113,45 @@ public class GameScript : MonoBehaviour
             p1UI.SetActive(false);
             p2UI.SetActive(true);
         }
+      
     }
 
-  
+  public void CheckWin()
+    {
+        int p1count=0, p2count=0;
+        for(int i = 0; i < pieceList.Count; i++)
+        {
+            if (pieceList[i] != null )
+            {
+                if(pieceList[i].GetComponent<PieceScript>().team == 0)
+                {
+                    p1count++;
+                  
+                }               
+                else if( pieceList[i].GetComponent<PieceScript>().team == 1)
+                {
+                    p2count++;
+                   
+                }
+                
+            }
+        }
+        if (p1count == 0)
+        {
+            Debug.Log("p1 wins");
+            p1Win.SetActive(true);
+            UIscript.SaveWinner("phil", turnsTaken);
+        }
+        else if (p2count == 0)
+        {
+            Debug.Log("p2 wins");
+            p2Win.SetActive(true);
+            UIscript.SaveWinner("darron", turnsTaken);
+
+        }
+    }
    
-}
-public static class Piece
-{
-
-    public static void extend(this GameObject g){
-
-
-
-    }
+      
+    
+   
 }
