@@ -29,12 +29,12 @@ public class UIscript : MonoBehaviour
         ShowHighscores();
         StartGame.onClick.AddListener(TaskOnClick);
         Test.onClick.AddListener(TestSave);
-
+       
        
     }
     void TestSave()
     {
-        SaveWinner("sam", 300);
+        SaveWinner(p1text, 300);
         ShowHighscores();
     }
     void TaskOnClick()
@@ -49,7 +49,7 @@ public class UIscript : MonoBehaviour
         dbconn = (IDbConnection)new SqliteConnection(conn);
         dbconn.Open(); //Open connection to the database.
         IDbCommand dbcmd = dbconn.CreateCommand();
-        string sqlQuery = "SELECT * " + "FROM GameScores";
+        string sqlQuery = "SELECT * " + "FROM GameScores ORDER BY Moves";
         dbcmd.CommandText = sqlQuery;
         IDataReader reader = dbcmd.ExecuteReader();
         while (reader.Read())
@@ -108,11 +108,13 @@ public class UIscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UIscript.p1text = p1input.text;
+        UIscript.p2text = p2input.text;
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == "Scene0" && foundObject == false)
         {
           gameHolder =  GameObject.Find("GamePlayObject");
-            
+           
            
             foundObject = true;
 

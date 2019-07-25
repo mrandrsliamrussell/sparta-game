@@ -14,8 +14,8 @@ public class GameScript : MonoBehaviour
     public GameObject p1UI, p2UI, p1Win, p2Win;
     public Text TimeTaken;
     public static bool Winner;
-    bool foundObject;
-    public static string p1Name, p2Name;
+    bool foundObject, hasWon;
+ 
 
     // Start is called before the first frame update
     void Awake()
@@ -113,7 +113,12 @@ public class GameScript : MonoBehaviour
             p1UI.SetActive(false);
             p2UI.SetActive(true);
         }
-      
+
+        if(hasWon == false)
+        {
+            CheckWin();
+        }
+        
     }
 
   public void CheckWin()
@@ -140,15 +145,19 @@ public class GameScript : MonoBehaviour
         {
             Debug.Log("p1 wins");
             p1Win.SetActive(true);
-            UIscript.SaveWinner("phil", turnsTaken);
+            hasWon = true;
+            UIscript.SaveWinner(UIscript.p1text, turnsTaken);
         }
         else if (p2count == 0)
         {
             Debug.Log("p2 wins");
             p2Win.SetActive(true);
-            UIscript.SaveWinner("darron", turnsTaken);
+            hasWon = true;
+            UIscript.SaveWinner(UIscript.p2text, turnsTaken);
 
         }
+        Debug.Log(UIscript.p1text);
+        Debug.Log(UIscript.p2text);
     }
    
       

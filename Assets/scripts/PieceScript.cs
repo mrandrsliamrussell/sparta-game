@@ -97,7 +97,7 @@ public class PieceScript : MonoBehaviour
                     BoardPieceScript.GlobalTurn = 0;
                     GameScript.turnsTaken++;
                 }
-                gameHolder.GetComponent<GameScript>().CheckWin();
+                
             }
             clicked = false;
             if (team == 0)

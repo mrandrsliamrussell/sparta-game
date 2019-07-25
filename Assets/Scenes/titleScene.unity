@@ -163,8 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87547fb3c40d9a642a58e38554346609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p1input: {fileID: 0}
-  p2input: {fileID: 0}
+  p1input: {fileID: 392751865}
+  p2input: {fileID: 1789285402}
   StartGame: {fileID: 920569299}
   Test: {fileID: 1285866177}
   listText: {fileID: 1050067119}
