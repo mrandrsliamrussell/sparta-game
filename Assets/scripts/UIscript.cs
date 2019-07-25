@@ -26,7 +26,7 @@ public class UIscript : MonoBehaviour
     }
     void Start()
     {
-        ShowHighscores();
+        
         StartGame.onClick.AddListener(TaskOnClick);
         Test.onClick.AddListener(TestSave);
        
@@ -44,6 +44,7 @@ public class UIscript : MonoBehaviour
 
     void ShowHighscores()
     {
+        listText.text = "";
           string conn = "URI=file:" + Application.dataPath + "/SpartaGameDatabase.db"; //Path to database.
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);
@@ -108,6 +109,7 @@ public class UIscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ShowHighscores();
         UIscript.p1text = p1input.text;
         UIscript.p2text = p2input.text;
         Scene currentScene = SceneManager.GetActiveScene();

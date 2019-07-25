@@ -1,3 +1,18 @@
+ _______  __   __  _______  _______  ___   _  _______  ______    _______                                       
+|       ||  | |  ||       ||       ||   | | ||       ||    _ |  |       |                                      
+|       ||  |_|  ||    ___||       ||   |_| ||    ___||   | ||  |  _____|                                      
+|       ||       ||   |___ |       ||      _||   |___ |   |_||_ | |_____                                       
+|      _||       ||    ___||      _||     |_ |    ___||    __  ||_____  | ___                                  
+|     |_ |   _   ||   |___ |     |_ |    _  ||   |___ |   |  | | _____| ||_  |                                 
+|_______||__| |__||_______||_______||___| |_||_______||___|  |_||_______|  |_|                                 
+ _______  __   __  _______    _     _  ___   _______  __   __    _______  _______  __   __  _______  _______   
+|  _    ||  | |  ||       |  | | _ | ||   | |       ||  | |  |  |  _    ||       ||  |_|  ||  _    ||       |  
+| |_|   ||  | |  ||_     _|  | || || ||   | |_     _||  |_|  |  | |_|   ||   _   ||       || |_|   ||  _____|  
+|       ||  |_|  |  |   |    |       ||   |   |   |  |       |  |       ||  | |  ||       ||       || |_____   
+|  _   | |       |  |   |    |       ||   |   |   |  |       |  |  _   | |  |_|  ||       ||  _   | |_____  |  
+| |_|   ||       |  |   |    |   _   ||   |   |   |  |   _   |  | |_|   ||       || ||_|| || |_|   | _____| |  
+|_______||_______|  |___|    |__| |__||___|   |___|  |__| |__|  |_______||_______||_|   |_||_______||_______|  
+
 README
 
 Welcome to Checkers, but with bombs!
@@ -23,9 +38,9 @@ if a bomb is activated it will destroy all pieces in a particular pattern.
 Bombs
 bombs take the appearence of black dots on the playing field.
 
-bomb patterns:
+Bomb patterns:
 
-	Horizontal - this will take out an entire row of pieces. Horizontal bombs look like a sphere stretched 		   		     horizontally, because thats what it actually is.
+	Horizontal - this will take out an entire row of pieces. Horizontal bombs look like a sphere stretched 		   		     horizontally, 		     because thats what it actually is.
 
 	Vertical -   this will take out a column of pieces. same as above but stretched vertically.
 	
