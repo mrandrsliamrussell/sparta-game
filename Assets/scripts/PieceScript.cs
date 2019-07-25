@@ -38,9 +38,15 @@ public class PieceScript : MonoBehaviour
         {
             if(BoardPieceScript.GlobalTurn == col.gameObject.GetComponent<PieceScript>().team)
             {
-                
+
                 Destroy(this.gameObject);
             }
+        }
+        if (col.gameObject.GetComponent<Bomb>())
+        {
+            col.gameObject.GetComponent<BoxCollider>().enabled = true;
+            Destroy(col.gameObject, 1f);
+           // Destroy(this.gameObject);
         }
     }
     void OnMouseExit()
@@ -97,6 +103,7 @@ public class PieceScript : MonoBehaviour
                     BoardPieceScript.GlobalTurn = 0;
                     GameScript.turnsTaken++;
                 }
+                gameHolder.GetComponent<GameScript>().PlaceBombss();
                 
             }
             clicked = false;

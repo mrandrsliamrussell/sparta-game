@@ -8,7 +8,8 @@ public class GameScript : MonoBehaviour
 {
     public GameObject piece;
     public GameObject boardpiece;
-    public static int turnsTaken, boardSize = 4;
+    public GameObject bombH, bombV, bombRad;
+    public static int turnsTaken, boardSize = 7;
     public GameObject[,] boardarray = new GameObject[boardSize, boardSize];
     public List<GameObject> pieceList = new List<GameObject>();
     public GameObject p1UI, p2UI, p1Win, p2Win;
@@ -43,10 +44,10 @@ public class GameScript : MonoBehaviour
                     case 1:
                         InstantiateGamePiece(i, j, 1);
                         break;
-                    case 3:
+                    case 5:
                         InstantiateGamePiece(i, j, 0);
                         break;
-                    case 4:
+                    case 6:
                         InstantiateGamePiece(i, j, 0);
                         break;
 
@@ -57,13 +58,55 @@ public class GameScript : MonoBehaviour
             }
         }
     }
-    void RefreshPositions()
+    public void PlaceBombss()
     {
         for(int i = 0; i < boardSize; i++)
         {
             for(int j = 0; j< boardSize; j++)
             {
-
+                
+                
+                if(Random.Range(0,100) > 96)
+                {
+                    bool nospawn = false;
+                    for(int k =0; k< pieceList.Count; k++)
+                    {
+                        if(pieceList[k] != null && pieceList[k].GetComponent<PieceScript>().x == i && pieceList[k].GetComponent<PieceScript>().y == j)
+                        {
+                            nospawn = true;
+                        }
+                    }
+                    switch(j % 3)
+                    {
+                        case 0:
+                            if(nospawn == false) {
+                                GameObject newBombRad = Instantiate(bombRad) as GameObject;
+                                newBombRad.transform.position = new Vector3(i * boardpiece.GetComponent<Collider>().bounds.size.x, 0.8f,
+                                    j * boardpiece.GetComponent<Collider>().bounds.size.z);
+                            }
+                            
+                            break;
+                        case 1:
+                            if (nospawn == false)
+                            {
+                                GameObject newBombH = Instantiate(bombH) as GameObject;
+                                newBombH.transform.position = new Vector3(i * boardpiece.GetComponent<Collider>().bounds.size.x, 0.8f,
+                                   j * boardpiece.GetComponent<Collider>().bounds.size.z);
+                            }
+                            break;
+                        case 2:
+                            if (nospawn == false)
+                            {
+                                GameObject newBombV = Instantiate(bombV) as GameObject;
+                                newBombV.transform.position = new Vector3(i * boardpiece.GetComponent<Collider>().bounds.size.x, 0.8f,
+                                   j * boardpiece.GetComponent<Collider>().bounds.size.z);
+                            }
+                            break;
+                    }
+                    
+                    
+                   
+                }
             }
         }
     }
@@ -146,7 +189,7 @@ public class GameScript : MonoBehaviour
             Debug.Log("p1 wins");
             p1Win.SetActive(true);
             hasWon = true;
-            UIscript.SaveWinner(UIscript.p1text, turnsTaken);
+            UIscript.SaveWinner(UIscript.p1text, Mathf.RoundToInt( turnsTaken + (0.1f* Time.timeSinceLevelLoad)));
         }
         else if (p2count == 0)
         {
