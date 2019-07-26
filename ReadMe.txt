@@ -21,7 +21,9 @@ this is an exciting game based on the classic game of checkers only there are bo
 
 Starting the game
 
-Double click on the CBWB.exe file
+Download Unity 2019.3.0a8 - if you want to see the database Work.
+
+alternatively you can run the sparta-game.exe file in the CBWB-Build folder but the database wont work.
 
 Aim of the game:
 
